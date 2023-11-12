@@ -31,7 +31,18 @@ function insertDepartment(name) {
     })
 };
 
+function insertRole(title, salary, department_id) {
+    db.query(`INSERT INTO role (name) VALUES ("${title}", "${salary}", "${department_id}")`, (err,results) => {
+        if (err) {
+            console.log(err);
+        } else {
+
+        }
+    })
+};
+
 module.exports = {
     insertDepartment,
-    insertEmployee
+    insertEmployee,
+    insertRole
 };

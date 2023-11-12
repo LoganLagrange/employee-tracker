@@ -46,13 +46,11 @@ const start = () => {
                 break
             
             case `Update Employee Role`:
-
-                start();
+                
                 break;
             
             case `Add Role`:
-
-                start();
+                addRole();
                 break;
 
             case `Add Department`:
@@ -108,6 +106,33 @@ function addEmployee() {
     .then((response) => {
         myFunctions.insertEmployee(response.firstName, response.lastName, response.roleId, response.managerId);
         console.log(`${response.firstName}  ${response.lastName} added as new employee`)
+        start();
+    });
+}
+
+function addRole() {
+    inquirer
+    .prompt([
+        {
+            type: `input`,
+            message: `What is the title of the new role?`,
+            name: `title`
+        },
+        {
+            type: `input`,
+            message: `What is the salary of the new role?`,
+            name: `salary`
+        },
+        {
+            type: `input`,
+            message: `What is the department ID of the new role?`,
+            name: `roleId`
+        }
+    ])
+    .then((response) => {
+        myFunctions.insertRole(response.title, response.salary, response.roleId);
+        console.log(`${response.title} added as new role`)
+        start();
     });
 }
 
