@@ -19,7 +19,7 @@ This project aims to give business owners the ability to manage their employees 
         
 ## Installation
         
-Clone the repo as normal and run the command npm -i to install the required npm packages.  Then run mysql on your local CLI interface, run the source db/schema.sql command, exit mysql. The program should now be ready to run.
+Clone the repo as normal and run the command npm -i to install the required npm packages.  Then run mysql on your local CLI interface, run the source db/schema.sql command, exit mysql. Finally enter the .envEXAMPLE file and enter your mysql user and password, then change the file name to .env. The program should now be ready to run.
         
 ## Usage
         
