@@ -21,17 +21,17 @@ const start = () => {
             message: `What would you like to do?`,
             name: `start`,
             choices: [`View All Employees`, `Add Employee`, `Update Employee Role`, `View All Roles`, `Add Role`,
-                         `View All Departments`, `Add Department`]
+                         `View All Departments`, `Add Department`, `Quit`]
         }
     ])
     .then((response) => {
         switch (response.start) {
             case `View All Employees`:
-                selectAllEmp(`employee`)
+                selectAllEmp()
                 break;
 
             case `View All Roles`:
-                selectAll(`role`)
+                selectAllRole()
                 break;
 
             case `View All Departments`:
@@ -53,6 +53,10 @@ const start = () => {
             case `Add Department`:
                 addDepartment()
                 break;
+
+            case `Quit`:
+                process.exit(0);
+                
         }
     })
     .catch((error) => {
@@ -151,6 +155,18 @@ function selectAll(tableName) {
 
 function selectAllEmp() {
     db.query(`SELECT e.id AS id, e.first_name, e.last_name, r.title AS role, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager FROM employee e JOIN role r ON e.role_id = r.id LEFT JOIN employee m ON e.manager_id = m.id;`, (err, results) => {
+        if (err) {
+            console.log(err);
+           } else {
+               console.log(` `);
+               console.table(results);
+               start();
+           }
+    })
+}
+
+function selectAllRole() {
+    db.query(`SELECT r.id as id, r.title, d.name, r.salary FROM role r LEFT JOIN department d ON r.department_id = d.id;`, (err, results) => {
         if (err) {
             console.log(err);
            } else {
