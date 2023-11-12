@@ -1,5 +1,7 @@
+require(`dotenv`).config();
 const inquirer = require(`inquirer`);
 const mysql = require(`mysql2`);
+const myFunctions = require(`./functions.js`)
 
 const db = mysql.createConnection(
     {
@@ -11,7 +13,7 @@ const db = mysql.createConnection(
     console.log(`Connected to employees_db database`)
 );
 
-function start() {
+const start = () => {
     inquirer
     .prompt([
         {
@@ -19,32 +21,56 @@ function start() {
             message: `What would you like to do?`,
             name: `start`,
             choices: [`View All Employees`, `Add Employee`, `Update Employee Role`, `View All Roles`, `Add Role`,
-                         `View All Departments`, `Add Department`, `Exit`]
+                         `View All Departments`, `Add Department`]
         }
     ])
     .then((response) => {
-        if (response === `View All Employees`) {
+        switch (response.start) {
+            case `View All Employees`:
+            case `View All Roles`:
+            case `View All Departments`:
+                functions.selectAll(response.start)
+                    .then(() => start());
+                break;
+            
+            case `Add Employee`:
 
-        } else if (response === `Add Employee`) {
+                start();
+                break;
+            
+            case `Update Employee Role`:
 
-        } else if (response === `Update Employee Role`) {
+                start();
+                break;
+            
+            case `Add Role`:
 
-        } else if (response === `View All Roles`) {
+                start();
+                break;
 
-        } else if (response === `Add Role`) {
-
-        } else if (response === `View All Departments`) {
-
-        } else if (response === `Add Department`) {
-
-        } else {
-            console.log(`Goodbye!`);
+            case `Add Department`:
+                addDepartment()
+                    .then(() => start());
+                break;
         }
-    });
+    })
+    .catch((error) => {
+        console.error(error);
+    })
 };
 
-function viewAllEmployee() {
-
+function addDepartment() {
+    inquirer
+    .prompt([
+        {
+        type: `input`,
+        message: `What is the name of tthe new department?`,
+        name: `department`
+        }
+    ])
+    .then((response) => {
+        myFunctions.insertDepartment(response.department);
+    });
 }
 
 start();

@@ -11,11 +11,26 @@ const db = mysql.createConnection(
 );
 
 function selectAll(tableName) {
-    db.query(`SELECT * FROM ${tableName}`)
+    db.query(`SELECT * FROM ${tableName}`, (err,results) => {
+        if (err) {
+         console.log(err);
+        } else {
+
+        }
+    })
 };
 
-function addDepartment(name) {
-    db.query(`INSERT INTO department (name)`)
+function insertDepartment(name) {
+    db.query(`INSERT INTO department (name) VALUES ("${name}")`, (err,results) => {
+       if (err) {
+        console.log(err);
+       } else {
+        console.log(`${name} added as new department`);
+       }
+    })
 };
 
-function addRole()
+module.exports = {
+    selectAll,
+    insertDepartment
+};
