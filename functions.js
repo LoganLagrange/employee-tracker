@@ -10,12 +10,13 @@ const db = mysql.createConnection(
     console.log(`Connected to employees_db database`)
 );
 
-function selectAll(tableName) {
-    db.query(`SELECT * FROM ${tableName}`, (err,results) => {
+function insertEmployee(firstName, lastName, roleId, managerId) {
+    db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) 
+                VALUES ("${firstName}", "${lastName}", "${roleId}", "${managerId}")`, (err, results) => {
         if (err) {
-         console.log(err);
+            console.log(err);
         } else {
-
+            
         }
     })
 };
@@ -25,12 +26,12 @@ function insertDepartment(name) {
        if (err) {
         console.log(err);
        } else {
-        console.log(`${name} added as new department`);
+        
        }
     })
 };
 
 module.exports = {
-    selectAll,
-    insertDepartment
+    insertDepartment,
+    insertEmployee
 };
