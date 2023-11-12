@@ -41,8 +41,19 @@ function insertRole(title, salary, department_id) {
     })
 };
 
+function updateRole(role_id, id) {
+    db.query(`UPDATE employee SET role_id=${role_id} WHERE id=${id};`, (err,results) => {
+        if (err) {
+            console.log(err);
+        } else {
+
+        }
+    })
+};
+
 module.exports = {
     insertDepartment,
     insertEmployee,
-    insertRole
+    insertRole,
+    updateRole
 };

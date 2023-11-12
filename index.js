@@ -43,7 +43,7 @@ const start = () => {
                 break
             
             case `Update Employee Role`:
-                
+                updateEmpRole();
                 break;
             
             case `Add Role`:
@@ -166,7 +166,7 @@ function selectAllEmp() {
 }
 
 function selectAllRole() {
-    db.query(`SELECT r.id as id, r.title, d.name, r.salary FROM role r LEFT JOIN department d ON r.department_id = d.id;`, (err, results) => {
+    db.query(`SELECT r.id as id, r.title, d.name AS department, r.salary FROM role r LEFT JOIN department d ON r.department_id = d.id;`, (err, results) => {
         if (err) {
             console.log(err);
            } else {
@@ -175,5 +175,45 @@ function selectAllRole() {
                start();
            }
     })
+}
+
+function updateEmpRole() {
+    const empArr =[];
+    let empId;
+    let idArr = [];
+    db.query(`SELECT first_name, last_name, id FROM employee;`, (err, results) => {
+        if (err) {
+            console.log(err);
+           }
+        
+        results.forEach((row) => {
+            empArr.push(row.id + ` ` + row.first_name + ` ` + row.last_name);
+            idArr.push(row.id);
+        })
+    
+        inquirer
+        .prompt([
+            {
+            type: `list`,
+                message: `Which employee would you like to update?`,
+                name: `empUpdate`,
+                choices: empArr
+            },
+            {
+                type: `input`,
+                message: `What is the id of the employee's new role?`,
+                name: `idUpdate`,
+            }
+        ])
+        .then((response) => {
+            const selectedId = empArr.indexOf(response.empUpdate);
+            empId = idArr[selectedId];
+            myFunctions.updateRole(response.idUpdate, empId);
+            console.log(`
+                ${response.empUpdate} has been given the new role`)
+            start();
+        });
+    })
+    
 }
 start();
