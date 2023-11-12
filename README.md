@@ -25,6 +25,8 @@ Clone the repo as normal and run the command npm -i to install the required npm 
         
 The program is used by running the node index.js command in your CLI. There should be prompts in your CLI that can be navigated using your arrow keys and keyboard for input. Just select what you would like to do and follow the prompt. READ CAREFULLY, some inputs require ids of employees or roles, be sure to enter these properly where needed. See attached video for a walkthrough of how to use the program.
 
+![Walkthrough video](./assets/gif/walkthrough-video.gif)
+
 ## Contribution Guidelines
 
 N/A

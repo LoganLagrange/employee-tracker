@@ -125,6 +125,9 @@ function addEmployee() {
         }
     ])
     .then((response) => {
+        if(response.managerId === ``) {
+            response.managerId = null;
+        }
         myFunctions.insertEmployee(response.firstName, response.lastName, response.roleId, response.managerId);
         console.log(`
             ${response.firstName}  ${response.lastName} added as new employee`)
