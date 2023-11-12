@@ -28,17 +28,14 @@ const start = () => {
         switch (response.start) {
             case `View All Employees`:
                 selectAll(`employee`)
-                start();
                 break;
 
             case `View All Roles`:
                 selectAll(`role`)
-                start();
                 break;
 
             case `View All Departments`:
                 selectAll(`department`)
-                start();
                 break;
             
             case `Add Employee`:
@@ -74,7 +71,9 @@ function addDepartment() {
     ])
     .then((response) => {
         myFunctions.insertDepartment(response.department);
-        console.log(`${response.department} added as new department`)
+        console.log(`
+            
+        ${response.department} added as new department`)
         start();
     });
 }
@@ -105,7 +104,8 @@ function addEmployee() {
     ])
     .then((response) => {
         myFunctions.insertEmployee(response.firstName, response.lastName, response.roleId, response.managerId);
-        console.log(`${response.firstName}  ${response.lastName} added as new employee`)
+        console.log(`
+            ${response.firstName}  ${response.lastName} added as new employee`)
         start();
     });
 }
@@ -131,7 +131,8 @@ function addRole() {
     ])
     .then((response) => {
         myFunctions.insertRole(response.title, response.salary, response.roleId);
-        console.log(`${response.title} added as new role`)
+        console.log(`
+            ${response.title} added as new role`)
         start();
     });
 }

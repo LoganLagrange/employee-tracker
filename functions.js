@@ -12,7 +12,7 @@ const db = mysql.createConnection(
 
 function insertEmployee(firstName, lastName, roleId, managerId) {
     db.query(`INSERT INTO employee (first_name, last_name, role_id, manager_id) 
-                VALUES ("${firstName}", "${lastName}", "${roleId}", "${managerId}")`, (err, results) => {
+                VALUES ("${firstName}", "${lastName}", "${roleId}", ${managerId})`, (err, results) => {
         if (err) {
             console.log(err);
         } else {
@@ -32,7 +32,7 @@ function insertDepartment(name) {
 };
 
 function insertRole(title, salary, department_id) {
-    db.query(`INSERT INTO role (name) VALUES ("${title}", "${salary}", "${department_id}")`, (err,results) => {
+    db.query(`INSERT INTO role (title, salary, department_id) VALUES ("${title}", ${salary}, ${department_id})`, (err,results) => {
         if (err) {
             console.log(err);
         } else {
